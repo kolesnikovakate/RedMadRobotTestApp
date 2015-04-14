@@ -1,5 +1,5 @@
 //
-//  UIAlertView+RMRTest.h
+//  CollageViewController.h
 //  RedMadRobotTestApp
 //
 //  Created by Екатерина Колесникова on 13.04.15.
@@ -8,10 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIAlertView (RMRTest)
-
-+ (UIAlertView *)alertRMRNoFindUsers;
-+ (UIAlertView *)alertRMRUnknownError;
-+ (UIAlertView *)alertRMRPermissionDenied;
+@interface CollageViewController : UIViewController
 
 @end

@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		A749B56286D176045E2F6C78 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 953CF03A9678F43EEC2ED7C0 /* libPods.a */; };
+		C00D4D8E1ADC4C8E00A1F8F3 /* CollageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C00D4D8D1ADC4C8E00A1F8F3 /* CollageViewController.m */; };
+		C00D4D911ADC517C00A1F8F3 /* RMRPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = C00D4D901ADC517C00A1F8F3 /* RMRPhoto.m */; };
+		C025DD351ADD145000BE9514 /* NetworkUtilites.m in Sources */ = {isa = PBXBuildFile; fileRef = C025DD341ADD145000BE9514 /* NetworkUtilites.m */; };
+		C025DD381ADD14B000BE9514 /* RMRUser.m in Sources */ = {isa = PBXBuildFile; fileRef = C025DD371ADD14B000BE9514 /* RMRUser.m */; };
 		C068DDCA1ADC3A4100E9E43B /* JSONParser.m in Sources */ = {isa = PBXBuildFile; fileRef = C068DDC91ADC3A4100E9E43B /* JSONParser.m */; };
 		C068DDCC1ADC3D1200E9E43B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C068DDCB1ADC3D1200E9E43B /* Localizable.strings */; };
 		C068DDCF1ADC3E5E00E9E43B /* UIAlertView+RMRTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C068DDCE1ADC3E5E00E9E43B /* UIAlertView+RMRTest.m */; };
@@ -34,6 +38,14 @@
 		3FEC060F4EE354DAF7FEA332 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		953CF03A9678F43EEC2ED7C0 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B694D1B67F5672846DCF20C3 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		C00D4D8C1ADC4C8E00A1F8F3 /* CollageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollageViewController.h; sourceTree = "<group>"; };
+		C00D4D8D1ADC4C8E00A1F8F3 /* CollageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollageViewController.m; sourceTree = "<group>"; };
+		C00D4D8F1ADC517C00A1F8F3 /* RMRPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMRPhoto.h; sourceTree = "<group>"; };
+		C00D4D901ADC517C00A1F8F3 /* RMRPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMRPhoto.m; sourceTree = "<group>"; };
+		C025DD331ADD145000BE9514 /* NetworkUtilites.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NetworkUtilites.h; path = Services/NetworkUtilites.h; sourceTree = "<group>"; };
+		C025DD341ADD145000BE9514 /* NetworkUtilites.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NetworkUtilites.m; path = Services/NetworkUtilites.m; sourceTree = "<group>"; };
+		C025DD361ADD14B000BE9514 /* RMRUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMRUser.h; sourceTree = "<group>"; };
+		C025DD371ADD14B000BE9514 /* RMRUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMRUser.m; sourceTree = "<group>"; };
 		C068DDC81ADC3A4100E9E43B /* JSONParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSONParser.h; path = Services/JSONParser.h; sourceTree = "<group>"; };
 		C068DDC91ADC3A4100E9E43B /* JSONParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSONParser.m; path = Services/JSONParser.m; sourceTree = "<group>"; };
 		C068DDCB1ADC3D1200E9E43B /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
@@ -83,11 +95,22 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		C00D4D8B1ADC4C6700A1F8F3 /* CollageVC */ = {
+			isa = PBXGroup;
+			children = (
+				C00D4D8C1ADC4C8E00A1F8F3 /* CollageViewController.h */,
+				C00D4D8D1ADC4C8E00A1F8F3 /* CollageViewController.m */,
+			);
+			name = CollageVC;
+			sourceTree = "<group>";
+		};
 		C068DDBE1ADC0CA800E9E43B /* Services */ = {
 			isa = PBXGroup;
 			children = (
 				C068DDC81ADC3A4100E9E43B /* JSONParser.h */,
 				C068DDC91ADC3A4100E9E43B /* JSONParser.m */,
+				C025DD331ADD145000BE9514 /* NetworkUtilites.h */,
+				C025DD341ADD145000BE9514 /* NetworkUtilites.m */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -193,6 +216,10 @@
 		C0E204751ADC0359006E201A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C025DD361ADD14B000BE9514 /* RMRUser.h */,
+				C025DD371ADD14B000BE9514 /* RMRUser.m */,
+				C00D4D8F1ADC517C00A1F8F3 /* RMRPhoto.h */,
+				C00D4D901ADC517C00A1F8F3 /* RMRPhoto.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -208,6 +235,7 @@
 		C0E204781ADC0381006E201A /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C00D4D8B1ADC4C6700A1F8F3 /* CollageVC */,
 				C0E2047A1ADC04ED006E201A /* MainVC */,
 			);
 			name = Controllers;
@@ -366,11 +394,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C00D4D911ADC517C00A1F8F3 /* RMRPhoto.m in Sources */,
+				C025DD351ADD145000BE9514 /* NetworkUtilites.m in Sources */,
+				C00D4D8E1ADC4C8E00A1F8F3 /* CollageViewController.m in Sources */,
 				C068DDCA1ADC3A4100E9E43B /* JSONParser.m in Sources */,
 				C0E204551ADBF74E006E201A /* MainViewController.m in Sources */,
 				C0E204521ADBF74E006E201A /* AppDelegate.m in Sources */,
 				C068DDCF1ADC3E5E00E9E43B /* UIAlertView+RMRTest.m in Sources */,
 				C0E2044F1ADBF74E006E201A /* main.m in Sources */,
+				C025DD381ADD14B000BE9514 /* RMRUser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

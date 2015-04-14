@@ -8,8 +8,8 @@
 
 #import "MainViewController.h"
 #import "AFNetworking.h"
-#import "JSONParser.h"
 #import "UIAlertView+RMRTest.h"
+#import "NetworkUtilites.h"
 
 @interface MainViewController ()
 
@@ -24,16 +24,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     self.activityIndicator.hidden = YES;
 
     [self.usernameTextField becomeFirstResponder];
     [self.usernameTextField addTarget:self
-                               action:@selector(getCollage)
+                               action:@selector(getCollage:)
                      forControlEvents:UIControlEventEditingDidEndOnExit];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    self.navigationController.navigationBar.hidden = YES;
+
     [self registerForKeyboardNotifications];
 }
 
@@ -89,34 +92,43 @@
 }
 
 - (IBAction)getCollage:(id)sender {
-    [self getCollage];
-}
-
-- (void)getCollage
-{
     [self.usernameTextField resignFirstResponder];
     NSString *username = [self.usernameTextField.text lowercaseString];
-    NSString *completeRequestUrl = @"https://api.instagram.com/v1/users/search/";
-    NSDictionary *parameters = @{@"q": username,
-                                 @"client_id": kRMRClientId};
 
     [self.activityIndicator startAnimating];
     self.activityIndicator.hidden = NO;
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:completeRequestUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString *userId = [JSONParser parseJSONdata:responseObject andFindUserIdByUsername:username];
-        if (userId != nil) {
-            [[NSUserDefaults standardUserDefaults] setObject:userId forKey:kRMRCurrentUserIdKey];
-            [[NSUserDefaults standardUserDefaults] synchronize];
+    [NetworkUtilites getUserWithUserName:username completion:^(RMRUser *user, NSError *error) {
+        if (!error) {
+            if (user != nil) {
+                [[NSUserDefaults standardUserDefaults] setObject:user.idx forKey:kRMRCurrentUserIdKey];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                [self checkUserPermissionsWithUserId:user.idx];
+            } else {
+                [[UIAlertView alertRMRNoFindUsers] show];
+                [self.activityIndicator stopAnimating];
+                self.activityIndicator.hidden = YES;
+            }
         } else {
+            NSLog(@"%@", error.description);
             [[UIAlertView alertRMRNoFindUsers] show];
+            [self.activityIndicator stopAnimating];
+            self.activityIndicator.hidden = YES;
         }
-        [self.activityIndicator stopAnimating];
-        self.activityIndicator.hidden = YES;
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [[UIAlertView alertRMRUnknownError] show];
-        [self.activityIndicator stopAnimating];
-        self.activityIndicator.hidden = YES;
+    }];
+}
+
+- (void)checkUserPermissionsWithUserId:(NSNumber *)userId
+{
+    [NetworkUtilites checkUserPermissionsWithUserId:userId completion:^(BOOL result, NSError *error) {
+        if (result) {
+            [self performSegueWithIdentifier:@"showCollage" sender:nil];
+            [self.activityIndicator stopAnimating];
+            self.activityIndicator.hidden = YES;
+        } else {
+            [[UIAlertView alertRMRPermissionDenied] show];
+            [self.activityIndicator stopAnimating];
+            self.activityIndicator.hidden = YES;
+        }
     }];
 }
 

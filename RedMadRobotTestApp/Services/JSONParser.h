@@ -10,6 +10,7 @@
 
 @interface JSONParser : NSObject
 
-+ (NSString *)parseJSONdata:(id)jsonData andFindUserIdByUsername:(NSString *)username;
++ (NSNumber *)parseJSONdata:(id)jsonData andFindUserIdByUsername:(NSString *)username;
++ (NSArray *)parseAndGetPhotosByJSONdata:(id)jsonData;
 
 @end

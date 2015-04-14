@@ -28,4 +28,13 @@
                             otherButtonTitles:nil];
 }
 
++ (UIAlertView *)alertRMRPermissionDenied
+{
+    return [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"ERROR", @"")
+                                      message:NSLocalizedString(@"PERMISSION_DENIED", @"")
+                                     delegate:nil
+                            cancelButtonTitle:@"ОК"
+                            otherButtonTitles:nil];
+}
+
 @end

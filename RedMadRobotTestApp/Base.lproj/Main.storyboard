@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="S11-Vc-hdW">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -73,14 +73,74 @@
                             <constraint firstAttribute="height" secondItem="8n5-3Z-aV9" secondAttribute="height" id="vux-6G-uIg"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="3KT-7f-wMI"/>
                     <connections>
                         <outlet property="activityIndicator" destination="Jof-y8-I1r" id="CIW-RB-wvl"/>
                         <outlet property="getCollageButton" destination="m2s-Cy-PHt" id="1AR-Da-u55"/>
                         <outlet property="scrollView" destination="o9Z-QV-V1m" id="he9-J4-VRC"/>
                         <outlet property="usernameTextField" destination="Nr5-BC-68h" id="Fvy-93-JMJ"/>
+                        <segue destination="Yca-2J-KKa" kind="show" identifier="showCollage" id="N5x-My-p1Q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="875" y="333"/>
+        </scene>
+        <!--Collage View Controller-->
+        <scene sceneID="beA-gd-xmO">
+            <objects>
+                <viewController id="Yca-2J-KKa" customClass="CollageViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hUa-sB-DTB"/>
+                        <viewControllerLayoutGuide type="bottom" id="jbq-dU-KS3"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ebl-zN-iLG">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="FVz-O5-ged">
+                                <rect key="frame" x="290" y="290" width="20" height="20"/>
+                            </activityIndicatorView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8Am-to-ipc">
+                                <rect key="frame" x="16" y="72" width="240" height="240"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="240" id="4oj-06-Jif"/>
+                                    <constraint firstAttribute="width" constant="240" id="sdy-OR-pRI"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerY" secondItem="FVz-O5-ged" secondAttribute="centerY" id="0A8-v6-npU"/>
+                            <constraint firstItem="8Am-to-ipc" firstAttribute="leading" secondItem="ebl-zN-iLG" secondAttribute="leadingMargin" id="5wi-ra-cML"/>
+                            <constraint firstItem="8Am-to-ipc" firstAttribute="top" secondItem="hUa-sB-DTB" secondAttribute="bottom" constant="8" id="GB1-z2-AAI"/>
+                            <constraint firstAttribute="centerX" secondItem="FVz-O5-ged" secondAttribute="centerX" id="MW4-Ej-wOZ"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="activityIndicator" destination="FVz-O5-ged" id="DUd-hQ-qdd"/>
+                        <outlet property="imageView" destination="8Am-to-ipc" id="iPa-GE-pHR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cZ2-aa-rwN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1582" y="333"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="ceg-ZZ-lk2">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="S11-Vc-hdW" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YqM-lU-ckj">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="GyK-RS-ctc"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vHF-1r-lpX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="63" y="333"/>
         </scene>
