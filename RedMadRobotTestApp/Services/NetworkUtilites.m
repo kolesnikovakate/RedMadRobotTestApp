@@ -38,8 +38,9 @@
     }];
 }
 
-+ (void)checkUserPermissionsWithUserId:(NSNumber *)userId completion:(RMRRequrestUserPermissionsCompletionBlock)completion
++ (void)checkUserPermissionsWintCompletion:(RMRRequrestUserPermissionsCompletionBlock)completion
 {
+    NSNumber *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kRMRCurrentUserIdKey];
     NSString *completeRequestUrl = [NSString stringWithFormat:@"https://api.instagram.com/v1/users/%@/", userId];;
     NSDictionary *parameters = @{@"client_id": kRMRClientId};
 
@@ -51,6 +52,46 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (completion) {
             completion(NO, error);
+        }
+    }];
+}
+
++ (void)getUserPhotosWithCompletion:(RMRRequrestUserPhotosCompletionBlock)completion
+{
+    [self getUserPhotosMediaWithLPhotos:[NSMutableArray new] maxID:nil maxMediaCount:kRMRMaxMediaCount completion:completion];
+}
+
++ (void)getUserPhotosMediaWithLPhotos:(NSMutableArray *)photos
+                                maxID:(NSString *)maxID
+                        maxMediaCount:(NSInteger)maxMediaCount
+                           completion:(RMRRequrestUserPhotosCompletionBlock)completion {
+    NSDictionary *params;
+    if (maxID) {
+        params = @{@"max_id" : maxID,
+                   @"client_id": kRMRClientId};
+    } else {
+        params = @{@"client_id": kRMRClientId};
+    }
+
+    NSNumber *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kRMRCurrentUserIdKey];
+    NSString *completeRequestUrl = [NSString stringWithFormat:@"https://api.instagram.com/v1/users/%@/media/recent/", userId];
+    //NSDictionary *parameters = @{@"client_id": kRMRClientId};
+
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET:completeRequestUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSArray *newPhotoArray = [JSONParser parseAndGetPhotosByJSONdata:responseObject];
+        NSString *newMaxID = responseObject[@"pagination"][@"next_max_id"];
+        [photos addObjectsFromArray:newPhotoArray];
+        if ([photos count] >= maxMediaCount || [newMaxID length] == 0) {
+            if (completion) {
+                completion([photos sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"likesCount" ascending:NO]]], nil);
+            }
+        } else {
+            [self getUserPhotosMediaWithLPhotos:photos maxID:newMaxID maxMediaCount:maxMediaCount completion:completion];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (completion) {
+            completion(nil, error);
         }
     }];
 }

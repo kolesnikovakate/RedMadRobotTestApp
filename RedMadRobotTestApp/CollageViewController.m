@@ -11,8 +11,9 @@
 #import "UIAlertView+RMRTest.h"
 #import "JSONParser.h"
 #import "RMRPhoto.h"
+#import "NetworkUtilites.h"
 
-@interface CollageViewController ()
+@interface CollageViewController () < UIAlertViewDelegate >
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
@@ -26,24 +27,23 @@
     [super viewDidLoad];
     self.navigationController.navigationBar.hidden = NO;
 
-    NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kRMRCurrentUserIdKey];
-    NSString *completeRequestUrl = [NSString stringWithFormat:@"https://api.instagram.com/v1/users/%@/media/recent/", userId];
-    NSDictionary *parameters = @{@"client_id": kRMRClientId};
-
     [self.activityIndicator startAnimating];
     self.activityIndicator.hidden = NO;
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:completeRequestUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSArray *photoArray = [JSONParser parseAndGetPhotosByJSONdata:responseObject];
-        NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"likesCount" ascending:NO];
-        NSArray *sortedArray = [photoArray sortedArrayUsingDescriptors:@[sort]];
-        [self loadPhotos:sortedArray];
-        [self.activityIndicator stopAnimating];
-        self.activityIndicator.hidden = YES;
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [[UIAlertView alertRMRUnknownError] show];
-        [self.activityIndicator stopAnimating];
-        self.activityIndicator.hidden = YES;
+
+    [NetworkUtilites getUserPhotosWithCompletion:^(NSArray *photos, NSError *error) {
+        if (!error) {
+            if (photos.count > 0) {
+                [self loadPhotos:photos];
+                [self.activityIndicator stopAnimating];
+                self.activityIndicator.hidden = YES;
+            } else {
+                [[UIAlertView alertRMRNoPhotoWithDelegate:self] show];
+            }
+        } else {
+            [[UIAlertView alertRMRUnknownError] show];
+            [self.activityIndicator stopAnimating];
+            self.activityIndicator.hidden = YES;
+        }
     }];
 }
 
@@ -68,6 +68,15 @@
 -(void)setImage:(UIImage *)image
 {
     self.imageView.image = image;
+}
+
+#pragma mark - UIAlertView Delegate
+
+- (void)alertView:(UIAlertView *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0)
+    {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 @end

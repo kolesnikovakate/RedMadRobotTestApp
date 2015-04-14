@@ -37,4 +37,13 @@
                             otherButtonTitles:nil];
 }
 
++ (UIAlertView *)alertRMRNoPhotoWithDelegate:(id)delegate
+{
+    return [[UIAlertView alloc] initWithTitle:nil
+                                      message:NSLocalizedString(@"NO_PHOTO", @"")
+                                     delegate:delegate
+                            cancelButtonTitle:@"ОК"
+                            otherButtonTitles:nil];
+}
+
 @end

@@ -13,5 +13,6 @@
 + (UIAlertView *)alertRMRNoFindUsers;
 + (UIAlertView *)alertRMRUnknownError;
 + (UIAlertView *)alertRMRPermissionDenied;
++ (UIAlertView *)alertRMRNoPhotoWithDelegate:(id)delegate;
 
 @end

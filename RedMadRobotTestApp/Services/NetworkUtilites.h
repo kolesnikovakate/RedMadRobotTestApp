@@ -11,10 +11,12 @@
 
 typedef void (^RMRRequrestUserCompletionBlock)(RMRUser *user, NSError *error);
 typedef void (^RMRRequrestUserPermissionsCompletionBlock)(BOOL result, NSError *error);
+typedef void (^RMRRequrestUserPhotosCompletionBlock)(NSArray *photos, NSError *error);
 
 @interface NetworkUtilites : NSObject
 
 + (void)getUserWithUserName:(NSString *)username completion:(RMRRequrestUserCompletionBlock)completion;
-+ (void)checkUserPermissionsWithUserId:(NSNumber *)userId completion:(RMRRequrestUserPermissionsCompletionBlock)completion;
++ (void)checkUserPermissionsWintCompletion:(RMRRequrestUserPermissionsCompletionBlock)completion;
++ (void)getUserPhotosWithCompletion:(RMRRequrestUserPhotosCompletionBlock)completion;
 
 @end

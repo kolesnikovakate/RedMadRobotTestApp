@@ -102,7 +102,7 @@
             if (user != nil) {
                 [[NSUserDefaults standardUserDefaults] setObject:user.idx forKey:kRMRCurrentUserIdKey];
                 [[NSUserDefaults standardUserDefaults] synchronize];
-                [self checkUserPermissionsWithUserId:user.idx];
+                [self checkUserPermissions];
             } else {
                 [[UIAlertView alertRMRNoFindUsers] show];
                 [self.activityIndicator stopAnimating];
@@ -117,9 +117,9 @@
     }];
 }
 
-- (void)checkUserPermissionsWithUserId:(NSNumber *)userId
+- (void)checkUserPermissions
 {
-    [NetworkUtilites checkUserPermissionsWithUserId:userId completion:^(BOOL result, NSError *error) {
+    [NetworkUtilites checkUserPermissionsWintCompletion:^(BOOL result, NSError *error) {
         if (result) {
             [self performSegueWithIdentifier:@"showCollage" sender:nil];
             [self.activityIndicator stopAnimating];
