@@ -1,0 +1,12 @@
+"NO_USERS" = "Пользователь с таким ником не найден!";
+"PERMISSION_DENIED" = "Пользователь закрыл доступ к своим фотографиям";
+"NO_PHOTO" = "Пользователь пока не загрузил ни одну фотографию :(";
+"LOAD" = "Загрузка фотографий";
+"SEARCH" = "Поиск пользователя";
+"CHECK" = "Проверка доступа";
+"USERNAME_PLACEHOLDER" = "Ник пользователя Instagram";
+"TITLE" = "Instagram collage";
+"ERROR_SEND_EMAIL" = "Не удалось отправить email";
+"CAN_NOT_SEND_EMAIL" = "Отправка невозможна, пожалуйста, проверьте настройки email";
+"FILE_NAME" = "photoCollage";
+
