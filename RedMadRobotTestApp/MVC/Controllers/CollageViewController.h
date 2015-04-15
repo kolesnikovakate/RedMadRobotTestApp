@@ -12,6 +12,6 @@
 #import <MessageUI/MFMailComposeViewController.h>
 
 @interface CollageViewController : UIViewController < CollagePhotoViewDelegate, MWPhotoBrowserDelegate,
-                                                        MFMailComposeViewControllerDelegate >
+                                                    MFMailComposeViewControllerDelegate >
 
 @end

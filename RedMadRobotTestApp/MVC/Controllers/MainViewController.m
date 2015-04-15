@@ -21,29 +21,35 @@
 
 @implementation MainViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
 
+    self.title = NSLocalizedString(@"TITLE", @"");
+
+    self.usernameTextField.placeholder = NSLocalizedString(@"USERNAME_PLACEHOLDER", @"");
     [self.usernameTextField becomeFirstResponder];
     [self.usernameTextField addTarget:self
                                action:@selector(getCollage:)
                      forControlEvents:UIControlEventEditingDidEndOnExit];
+
+    self.getCollageButton.layer.cornerRadius = 5.f;
 }
 
-- (void) viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
-    self.navigationController.navigationBar.hidden = YES;
-
     [self registerForKeyboardNotifications];
 }
 
-- (void) viewWillDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated
+{
     [self deregisterFromKeyboardNotifications];
     [super viewWillDisappear:animated];
 }
 
-- (void)registerForKeyboardNotifications {
-
+- (void)registerForKeyboardNotifications
+{
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardDidShow:)
                                                  name:UIKeyboardDidShowNotification
@@ -53,11 +59,10 @@
                                              selector:@selector(keyboardDidHide:)
                                                  name:UIKeyboardDidHideNotification
                                                object:nil];
-
 }
 
-- (void)deregisterFromKeyboardNotifications {
-
+- (void)deregisterFromKeyboardNotifications
+{
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIKeyboardDidHideNotification
                                                   object:nil];
@@ -65,13 +70,11 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIKeyboardWillHideNotification
                                                   object:nil];
-
 }
 
-
-- (void)keyboardDidShow:(NSNotification *)notification {
-
-    NSDictionary* info = [notification userInfo];
+- (void)keyboardDidShow:(NSNotification *)notification
+{
+    NSDictionary *info = [notification userInfo];
 
     CGSize keyboardSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
     CGRect visibleRect = self.view.frame;
@@ -84,11 +87,13 @@
     [_scrollView setContentOffset:scrollPoint animated:YES];
 }
 
-- (void)keyboardDidHide:(NSNotification *)notification {
+- (void)keyboardDidHide:(NSNotification *)notification
+{
     [_scrollView setContentOffset:CGPointZero animated:YES];
 }
 
-- (IBAction)getCollage:(id)sender {
+- (IBAction)getCollage:(id)sender
+{
     [self.usernameTextField resignFirstResponder];
     NSString *username = [self.usernameTextField.text lowercaseString];
 
@@ -99,7 +104,6 @@
             if (user != nil) {
                 [[NSUserDefaults standardUserDefaults] setObject:user.idx forKey:kRMRCurrentUserIdKey];
                 [[NSUserDefaults standardUserDefaults] synchronize];
-                //[SVProgressHUD dismiss];
                 [self checkUserPermissions];
             } else {
                 [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"NO_USERS", @"")];
@@ -112,8 +116,6 @@
 
 - (void)checkUserPermissions
 {
-    //[SVProgressHUD showWithStatus:NSLocalizedString(@"CHECK", @"") maskType:SVProgressHUDMaskTypeBlack];
-
     [NetworkUtilites checkUserPermissionsWintCompletion:^(BOOL result, NSError *error) {
         if (result) {
             [SVProgressHUD dismiss];

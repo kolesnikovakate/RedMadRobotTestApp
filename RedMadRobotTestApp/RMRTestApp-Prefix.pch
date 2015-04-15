@@ -14,7 +14,7 @@
 
 #define kRMRCurrentUserIdKey @"kRMRCurrentUserIdKey"
 
-#define kRMRMaxMediaCount 100
+#define kRMRMaxMediaCount 60
 
 
 #endif

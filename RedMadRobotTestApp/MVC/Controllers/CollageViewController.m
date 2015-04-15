@@ -13,31 +13,28 @@
 
 #import <SVProgressHUD/SVProgressHUD.h>
 
-@interface CollageViewController () < UIAlertViewDelegate >
+@interface CollageViewController ()
 
 @property (weak, nonatomic) IBOutlet UIView *mainCollageView;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (weak, nonatomic) IBOutlet CollagePhotoView *collageView1;
 @property (weak, nonatomic) IBOutlet CollagePhotoView *collageView2;
 @property (weak, nonatomic) IBOutlet CollagePhotoView *collageView3;
 @property (weak, nonatomic) IBOutlet CollagePhotoView *collageView4;
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *collageViewWidthConstraint;
-@property (nonatomic, weak) CollagePhotoView *currentCollageView;
 
 @end
 
 @implementation CollageViewController {
-    NSArray *photoArray_;
+    NSArray *_photoArray;
+    CollagePhotoView *_currentCollageView;
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    self.navigationController.navigationBar.hidden = NO;
 
-    [self.activityIndicator startAnimating];
-    self.activityIndicator.hidden = NO;
-
-    photoArray_ = [[NSArray alloc] init];
+    _photoArray = [[NSArray alloc] init];
 
     UIBarButtonItem *printButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
                                                                                  target:self
@@ -51,10 +48,8 @@
         if (!error) {
             if (photos.count > 0) {
                 [SVProgressHUD dismiss];
-                photoArray_ = photos;
+                _photoArray = photos;
                 [self loadStartPhotos];
-                [self.activityIndicator stopAnimating];
-                self.activityIndicator.hidden = YES;
                 self.navigationItem.rightBarButtonItem.enabled = YES;
             } else {
                 [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"NO_PHOTO", @"")];
@@ -66,8 +61,6 @@
             self.collageView4.delegate = self;
         } else {
             [SVProgressHUD showErrorWithStatus:[error localizedDescription]];
-            [self.activityIndicator stopAnimating];
-            self.activityIndicator.hidden = YES;
         }
     }];
 }
@@ -79,56 +72,49 @@
 
 - (void)loadStartPhotos
 {
-    if (photoArray_.count > 3) {
-        [self.collageView1 loadImageWithPhoto:photoArray_[0]];
-        [self.collageView2 loadImageWithPhoto:photoArray_[1]];
-        [self.collageView3 loadImageWithPhoto:photoArray_[2]];
-        [self.collageView4 loadImageWithPhoto:photoArray_[3]];
+    if (_photoArray.count > 3) {
+        [self.collageView1 loadImageWithPhoto:_photoArray[0]];
+        [self.collageView2 loadImageWithPhoto:_photoArray[1]];
+        [self.collageView3 loadImageWithPhoto:_photoArray[2]];
+        [self.collageView4 loadImageWithPhoto:_photoArray[3]];
     }
 }
 
-- (void)onPhotoSelected:(RMRPhoto *)photo
+- (void)selectedPhoto:(RMRPhoto *)photo
 {
-    [self.currentCollageView loadImageWithPhoto:photo];
+    [_currentCollageView loadImageWithPhoto:photo];
 }
 
-- (void)sendCollage:(id)sender {
+- (void)sendCollage:(id)sender
+{
     if ([MFMailComposeViewController canSendMail]) {
         MFMailComposeViewController* mailVC = [[MFMailComposeViewController alloc] init];
         mailVC.mailComposeDelegate = self;
-        [mailVC setSubject:@"Instagram collage"];
+        [mailVC setSubject:NSLocalizedString(@"TITLE", @"")];
         UIImage * photoCollageImage = [self.mainCollageView getCollageImage];
         NSData *imageData = UIImagePNGRepresentation(photoCollageImage);
-        [mailVC addAttachmentData:imageData mimeType:@"image/png" fileName:@"photoCollage"];
+        [mailVC addAttachmentData:imageData mimeType:@"image/png" fileName:NSLocalizedString(@"FILE_NAME", @"")];
         [self presentViewController:mailVC animated:YES completion:nil];
     } else {
-        NSLog(@"В данный момент отправка невозможна, пожалуйста, проверьте настройки email");
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"CAN_NOT_SEND_EMAIL", @"")];
     }
 }
 
-#pragma mark - MFMailComposeViewControllerDelegate
+#pragma mark - MFMailComposeViewController Delegate
 
-- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
     if (result == MFMailComposeResultFailed) {
-        NSLog(@"Не удалось отправить email");
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"ERROR_SEND_EMAIL", @"")];
     }
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-#pragma mark - UIAlertView Delegate
-
-- (void)alertView:(UIAlertView *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 0)
-    {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
 }
 
 #pragma mark - CollagePhotoView Delegate
 
 - (void)tapOnCollageView:(CollagePhotoView *)collagePhotoView
 {
-    self.currentCollageView = collagePhotoView;
+    _currentCollageView = collagePhotoView;
 
     MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
     browser.enableGrid = YES;
@@ -143,19 +129,7 @@
 
 - (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser
 {
-    return [photoArray_ count];
-}
-
-- (id <MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index
-{
-    RMRPhoto *photo = photoArray_[index];
-    return [MWPhoto photoWithURL:[NSURL URLWithString:photo.urlString]];
-}
-
-- (id <MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser thumbPhotoAtIndex:(NSUInteger)index
-{
-    RMRPhoto *photo = photoArray_[index];
-    return [MWPhoto photoWithURL:[NSURL URLWithString:photo.thumbnailUrlString]];
+    return [_photoArray count];
 }
 
 - (BOOL)photoBrowser:(MWPhotoBrowser *)photoBrowser isPhotoSelectedAtIndex:(NSUInteger)index
@@ -163,10 +137,22 @@
     return NO;
 }
 
+- (id <MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser thumbPhotoAtIndex:(NSUInteger)index
+{
+    RMRPhoto *photo = _photoArray[index];
+    return [MWPhoto photoWithURL:[NSURL URLWithString:photo.thumbnailUrlString]];
+}
+
+- (id <MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index
+{
+    RMRPhoto *photo = _photoArray[index];
+    return [MWPhoto photoWithURL:[NSURL URLWithString:photo.urlString]];
+}
+
 - (void)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index selectedChanged:(BOOL)selected
 {
     [self.navigationController popViewControllerAnimated:YES];
-    [self onPhotoSelected:photoArray_[index]];
+    [self selectedPhoto:_photoArray[index]];
 }
 
 @end

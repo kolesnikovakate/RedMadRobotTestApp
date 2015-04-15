@@ -9,6 +9,7 @@
 #import "NetworkUtilites.h"
 #import "AFNetworking.h"
 #import "JSONParser.h"
+#import "NSDictionary+InstagramRequest.h"
 
 @implementation NetworkUtilites
 
@@ -42,7 +43,8 @@
 {
     NSNumber *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kRMRCurrentUserIdKey];
     NSString *completeRequestUrl = [NSString stringWithFormat:@"https://api.instagram.com/v1/users/%@/", userId];;
-    NSDictionary *parameters = @{@"client_id": kRMRClientId};
+    NSDictionary *parameters = [NSDictionary requestParamsDictionaryWithDictionary:nil];
+  //@{@"client_id": kRMRClientId};
 
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:completeRequestUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -65,20 +67,19 @@
                                 maxID:(NSString *)maxID
                         maxMediaCount:(NSInteger)maxMediaCount
                            completion:(RMRRequrestUserPhotosCompletionBlock)completion {
-    NSDictionary *params;
-    if (maxID) {
-        params = @{@"max_id" : maxID,
-                   @"client_id": kRMRClientId};
-    } else {
-        params = @{@"client_id": kRMRClientId};
-    }
+    NSDictionary *parameters = [NSDictionary requestParamsDictionaryWithDictionary:(maxID ? @{@"max_id" : maxID} : nil )];
+//    if (maxID) {
+//        params = @{@"max_id" : maxID,
+//                   @"client_id": kRMRClientId};
+//    } else {
+//        params = @{@"client_id": kRMRClientId};
+//    }
 
     NSNumber *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kRMRCurrentUserIdKey];
     NSString *completeRequestUrl = [NSString stringWithFormat:@"https://api.instagram.com/v1/users/%@/media/recent/", userId];
-    //NSDictionary *parameters = @{@"client_id": kRMRClientId};
 
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:completeRequestUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:completeRequestUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *newPhotoArray = [JSONParser parseAndGetPhotosByJSONdata:responseObject];
         NSString *newMaxID = responseObject[@"pagination"][@"next_max_id"];
         [photos addObjectsFromArray:newPhotoArray];

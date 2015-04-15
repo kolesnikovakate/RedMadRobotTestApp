@@ -10,41 +10,14 @@
 
 @implementation CollagePhotoView
 
-//- (void)encodeWithCoder:(NSCoder *)encoder
-//{
-//    [encoder encodeObject:self.imageView forKey:@"imageView"];
-//    [encoder encodeObject:self.activityIndicator forKey:@"activityIndicator"];
-//}
-//
-//- (id)initWithCoder:(NSCoder *)decoder
-//{
-//    self = [super init];
-//    if( self != nil )
-//    {
-//        self.imageView = [decoder decodeObjectForKey:@"imageView"];
-//        self.activityIndicator = [decoder decodeObjectForKey:@"activityIndicator"];
-//    }
-//    return self;
-//}
-
-- (id)initWithCoder:(NSCoder *)aDecoder {
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
     if (self = [super initWithCoder:aDecoder]) {
         [[NSBundle mainBundle] loadNibNamed:@"CollagePhotoView"
                                       owner:self options:nil];
-
         [self addSubview:self.view];
         self.activityIndicator.hidden = YES;
         self.imageView.hidden = YES;
-    }
-    return self;
-}
-
-- (id) initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self)
-    {
-
     }
     return self;
 }
@@ -56,7 +29,8 @@
     [self.view setFrame:CGRectMake(origin.x, origin.y, size.width, size.height)];
 }
 
-- (IBAction)tapOnView:(UITapGestureRecognizer *)sender {
+- (IBAction)tapOnView:(UITapGestureRecognizer *)sender
+{
     [self.delegate tapOnCollageView:self];
 }
 

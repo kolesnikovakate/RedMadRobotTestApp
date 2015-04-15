@@ -13,6 +13,5 @@
 @property (nonatomic, strong) NSNumber *likesCount;
 @property (nonatomic, strong) NSString *urlString;
 @property (nonatomic, strong) NSString *thumbnailUrlString;
-@property (nonatomic, strong) NSData *data;
 
 @end
