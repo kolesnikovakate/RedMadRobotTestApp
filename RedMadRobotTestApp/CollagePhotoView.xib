@@ -29,6 +29,7 @@
                 </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <gestureRecognizers/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="SF0-55-mNf" secondAttribute="bottom" id="3jd-55-Gfg"/>
                 <constraint firstItem="SF0-55-mNf" firstAttribute="top" secondItem="sRD-6w-Vph" secondAttribute="top" id="7YV-Oj-9ju"/>
@@ -57,8 +58,16 @@
                     <exclude reference="j1F-kQ-NxP"/>
                 </mask>
             </variation>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="eGT-as-Dlz" appends="YES" id="1ed-qv-rZG"/>
+            </connections>
             <point key="canvasLocation" x="346" y="380"/>
         </view>
+        <tapGestureRecognizer id="eGT-as-Dlz">
+            <connections>
+                <action selector="tapOnView:" destination="-1" id="3Cr-Ii-ONm"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <resources>
         <image name="plus" width="50" height="50"/>

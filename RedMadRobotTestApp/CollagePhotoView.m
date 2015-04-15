@@ -56,6 +56,10 @@
     [self.view setFrame:CGRectMake(origin.x, origin.y, size.width, size.height)];
 }
 
+- (IBAction)tapOnView:(UITapGestureRecognizer *)sender {
+    [self.delegate tapOnCollageView:self];
+}
+
 - (void)loadImageWithPhoto:(RMRPhoto *)photo
 {
     self.imageView.hidden = NO;

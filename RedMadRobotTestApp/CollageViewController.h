@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CollagePhotoView.h"
+#import <MWPhotoBrowser/MWPhotoBrowser.h>
 
-@interface CollageViewController : UIViewController
+@interface CollageViewController : UIViewController < CollagePhotoViewDelegate, MWPhotoBrowserDelegate >
 
 @end
