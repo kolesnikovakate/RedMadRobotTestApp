@@ -12,11 +12,16 @@
 #import "JSONParser.h"
 #import "RMRPhoto.h"
 #import "NetworkUtilites.h"
+#import "CollagePhotoView.h"
 
 @interface CollageViewController () < UIAlertViewDelegate >
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet CollagePhotoView *collageView1;
+@property (weak, nonatomic) IBOutlet CollagePhotoView *collageView2;
+@property (weak, nonatomic) IBOutlet CollagePhotoView *collageView3;
+@property (weak, nonatomic) IBOutlet CollagePhotoView *collageView4;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *collageViewWidthConstraint;
 
 @end
 
@@ -47,27 +52,19 @@
     }];
 }
 
+- (void)viewDidLayoutSubviews
+{
+    self.collageViewWidthConstraint.constant = MIN(self.view.bounds.size.height, self.view.bounds.size.width) - 20.f;
+}
+
 - (void)loadPhotos:(NSArray *)photoArray
 {
-    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-    for (RMRPhoto *photo in photoArray) {
-        NSOperation *loadImgOp = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(loadImageWithPhoto:) object:photo];
-        [queue addOperation:loadImgOp];
+    if (photoArray.count > 3) {
+        [self.collageView1 loadImageWithPhoto:photoArray[0]];
+        [self.collageView2 loadImageWithPhoto:photoArray[1]];
+        [self.collageView3 loadImageWithPhoto:photoArray[2]];
+        [self.collageView4 loadImageWithPhoto:photoArray[3]];
     }
-
-}
-
-- (void)loadImageWithPhoto:(RMRPhoto *)photo
-{
-    NSURL *url = [NSURL URLWithString:photo.thumbnailUrlString];
-    UIImage *thumb = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
-    //photo.data = UIImageJPEGRepresentation(thumb, 1.0f);
-    [self performSelectorOnMainThread:@selector(setImage:) withObject:thumb waitUntilDone:YES];
-}
-
--(void)setImage:(UIImage *)image
-{
-    self.imageView.image = image;
 }
 
 #pragma mark - UIAlertView Delegate
