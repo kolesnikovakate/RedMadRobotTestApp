@@ -22,7 +22,7 @@
     return self;
 }
 
--(void)layoutSubviews
+- (void)layoutSubviews
 {
     CGSize size = self.frame.size;
     CGPoint origin = self.view.frame.origin;
@@ -31,6 +31,7 @@
 
 - (IBAction)tapOnView:(UITapGestureRecognizer *)sender
 {
+    self.imageView.image = nil;
     [self.delegate tapOnCollageView:self];
 }
 
