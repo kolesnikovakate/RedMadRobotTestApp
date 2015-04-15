@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="S11-Vc-hdW">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="S11-Vc-hdW">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -39,17 +39,12 @@
                                                     <action selector="getCollage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="e3W-Z2-vQC"/>
                                                 </connections>
                                             </button>
-                                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Jof-y8-I1r">
-                                                <rect key="frame" x="290" y="296" width="20" height="20"/>
-                                            </activityIndicatorView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="Jof-y8-I1r" firstAttribute="top" secondItem="m2s-Cy-PHt" secondAttribute="bottom" constant="8" symbolic="YES" id="5bz-Gn-p8Z"/>
                                             <constraint firstAttribute="centerX" secondItem="m2s-Cy-PHt" secondAttribute="centerX" id="Rg8-V2-MsC"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="Nr5-BC-68h" secondAttribute="trailing" id="SZN-bb-jG9"/>
                                             <constraint firstAttribute="centerY" secondItem="Nr5-BC-68h" secondAttribute="centerY" multiplier="8:7" id="Zm8-uk-YYf"/>
-                                            <constraint firstAttribute="centerX" secondItem="Jof-y8-I1r" secondAttribute="centerX" id="iex-3F-azQ"/>
                                             <constraint firstItem="m2s-Cy-PHt" firstAttribute="top" secondItem="Nr5-BC-68h" secondAttribute="bottom" constant="8" symbolic="YES" id="itF-jL-gkq"/>
                                             <constraint firstAttribute="centerX" secondItem="Nr5-BC-68h" secondAttribute="centerX" id="qHA-xI-Pox"/>
                                             <constraint firstItem="Nr5-BC-68h" firstAttribute="leading" secondItem="8n5-3Z-aV9" secondAttribute="leadingMargin" id="tGs-X3-tUl"/>
@@ -76,7 +71,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="3KT-7f-wMI"/>
                     <connections>
-                        <outlet property="activityIndicator" destination="Jof-y8-I1r" id="CIW-RB-wvl"/>
                         <outlet property="getCollageButton" destination="m2s-Cy-PHt" id="1AR-Da-u55"/>
                         <outlet property="scrollView" destination="o9Z-QV-V1m" id="he9-J4-VRC"/>
                         <outlet property="usernameTextField" destination="Nr5-BC-68h" id="Fvy-93-JMJ"/>
@@ -96,15 +90,9 @@
                         <viewControllerLayoutGuide type="bottom" id="jbq-dU-KS3"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ebl-zN-iLG">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="FVz-O5-ged">
-                                <rect key="frame" x="290" y="258" width="20" height="20"/>
-                                <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
-                                    <rect key="frame" x="390" y="390" width="20" height="20"/>
-                                </variation>
-                            </activityIndicatorView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="goU-Tv-9eG">
                                 <rect key="frame" x="40" y="8" width="520" height="520"/>
                                 <subviews>
@@ -153,19 +141,19 @@
                         <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="centerY" secondItem="goU-Tv-9eG" secondAttribute="centerY" id="CUR-Je-DoQ"/>
-                            <constraint firstAttribute="centerY" secondItem="FVz-O5-ged" secondAttribute="centerY" id="S2x-t6-iBm"/>
-                            <constraint firstAttribute="centerX" secondItem="FVz-O5-ged" secondAttribute="centerX" id="dKp-oG-fSC"/>
                             <constraint firstAttribute="centerX" secondItem="goU-Tv-9eG" secondAttribute="centerX" id="lVb-IP-WbR"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
+                    <toolbarItems/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="activityIndicator" destination="FVz-O5-ged" id="DUd-hQ-qdd"/>
                         <outlet property="collageView1" destination="8EF-Ok-bbr" id="udP-ir-Ul0"/>
                         <outlet property="collageView2" destination="Rxt-LW-Frt" id="MAi-Z9-kUZ"/>
                         <outlet property="collageView3" destination="P1s-HO-7AX" id="SUi-W5-O8K"/>
                         <outlet property="collageView4" destination="5fh-Mu-0LE" id="tGv-fM-2qk"/>
                         <outlet property="collageViewWidthConstraint" destination="jGC-7e-YZD" id="s66-Uo-iuS"/>
+                        <outlet property="mainCollageView" destination="goU-Tv-9eG" id="F1Y-yu-zJT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cZ2-aa-rwN" userLabel="First Responder" sceneMemberID="firstResponder"/>

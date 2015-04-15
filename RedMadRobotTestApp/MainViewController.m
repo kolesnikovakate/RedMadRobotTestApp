@@ -7,16 +7,15 @@
 //
 
 #import "MainViewController.h"
-#import "AFNetworking.h"
-#import "UIAlertView+RMRTest.h"
 #import "NetworkUtilites.h"
+
+#import <SVProgressHUD/SVProgressHUD.h>
 
 @interface MainViewController ()
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
 @property (weak, nonatomic) IBOutlet UIButton *getCollageButton;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end
 
@@ -24,8 +23,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    self.activityIndicator.hidden = YES;
 
     [self.usernameTextField becomeFirstResponder];
     [self.usernameTextField addTarget:self
@@ -95,39 +92,34 @@
     [self.usernameTextField resignFirstResponder];
     NSString *username = [self.usernameTextField.text lowercaseString];
 
-    [self.activityIndicator startAnimating];
-    self.activityIndicator.hidden = NO;
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"SEARCH", @"") maskType:SVProgressHUDMaskTypeBlack];
+
     [NetworkUtilites getUserWithUserName:username completion:^(RMRUser *user, NSError *error) {
         if (!error) {
             if (user != nil) {
                 [[NSUserDefaults standardUserDefaults] setObject:user.idx forKey:kRMRCurrentUserIdKey];
                 [[NSUserDefaults standardUserDefaults] synchronize];
+                //[SVProgressHUD dismiss];
                 [self checkUserPermissions];
             } else {
-                [[UIAlertView alertRMRNoFindUsers] show];
-                [self.activityIndicator stopAnimating];
-                self.activityIndicator.hidden = YES;
+                [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"NO_USERS", @"")];
             }
         } else {
-            NSLog(@"%@", error.description);
-            [[UIAlertView alertRMRNoFindUsers] show];
-            [self.activityIndicator stopAnimating];
-            self.activityIndicator.hidden = YES;
+            [SVProgressHUD showErrorWithStatus:[error localizedDescription]];
         }
     }];
 }
 
 - (void)checkUserPermissions
 {
+    //[SVProgressHUD showWithStatus:NSLocalizedString(@"CHECK", @"") maskType:SVProgressHUDMaskTypeBlack];
+
     [NetworkUtilites checkUserPermissionsWintCompletion:^(BOOL result, NSError *error) {
         if (result) {
+            [SVProgressHUD dismiss];
             [self performSegueWithIdentifier:@"showCollage" sender:nil];
-            [self.activityIndicator stopAnimating];
-            self.activityIndicator.hidden = YES;
         } else {
-            [[UIAlertView alertRMRPermissionDenied] show];
-            [self.activityIndicator stopAnimating];
-            self.activityIndicator.hidden = YES;
+            [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"PERMISSION_DENIED", @"")];
         }
     }];
 }

@@ -4,3 +4,4 @@ xcodeproj 'RedMadRobotTestApp.xcodeproj'
 
 pod 'AFNetworking'
 pod 'MWPhotoBrowser'
+pod 'SVProgressHUD'

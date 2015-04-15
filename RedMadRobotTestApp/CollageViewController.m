@@ -7,14 +7,15 @@
 //
 
 #import "CollageViewController.h"
-#import "AFNetworking.h"
-#import "UIAlertView+RMRTest.h"
-#import "JSONParser.h"
-#import "RMRPhoto.h"
 #import "NetworkUtilites.h"
+#import "RMRPhoto.h"
+#import "UIView+RMRTest.h"
+
+#import <SVProgressHUD/SVProgressHUD.h>
 
 @interface CollageViewController () < UIAlertViewDelegate >
 
+@property (weak, nonatomic) IBOutlet UIView *mainCollageView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (weak, nonatomic) IBOutlet CollagePhotoView *collageView1;
 @property (weak, nonatomic) IBOutlet CollagePhotoView *collageView2;
@@ -38,22 +39,33 @@
 
     photoArray_ = [[NSArray alloc] init];
 
+    UIBarButtonItem *printButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+                                                                                 target:self
+                                                                                 action:@selector(sendCollage:)];
+    printButton.enabled = NO;
+    self.navigationItem.rightBarButtonItem = printButton;
+
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"LOAD", @"") maskType:SVProgressHUDMaskTypeBlack];
+
     [NetworkUtilites getUserPhotosWithCompletion:^(NSArray *photos, NSError *error) {
         if (!error) {
             if (photos.count > 0) {
+                [SVProgressHUD dismiss];
                 photoArray_ = photos;
-                [self loadPhotos:photos];
+                [self loadStartPhotos];
                 [self.activityIndicator stopAnimating];
                 self.activityIndicator.hidden = YES;
+                self.navigationItem.rightBarButtonItem.enabled = YES;
             } else {
-                [[UIAlertView alertRMRNoPhotoWithDelegate:self] show];
+                [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"NO_PHOTO", @"")];
+                [self.navigationController popViewControllerAnimated:YES];
             }
             self.collageView1.delegate = self;
             self.collageView2.delegate = self;
             self.collageView3.delegate = self;
             self.collageView4.delegate = self;
         } else {
-            [[UIAlertView alertRMRUnknownError] show];
+            [SVProgressHUD showErrorWithStatus:[error localizedDescription]];
             [self.activityIndicator stopAnimating];
             self.activityIndicator.hidden = YES;
         }
@@ -65,19 +77,42 @@
     self.collageViewWidthConstraint.constant = MIN(self.view.bounds.size.height, self.view.bounds.size.width) - 20.f;
 }
 
-- (void)loadPhotos:(NSArray *)photoArray
+- (void)loadStartPhotos
 {
-    if (photoArray.count > 3) {
-        [self.collageView1 loadImageWithPhoto:photoArray[0]];
-        [self.collageView2 loadImageWithPhoto:photoArray[1]];
-        [self.collageView3 loadImageWithPhoto:photoArray[2]];
-        [self.collageView4 loadImageWithPhoto:photoArray[3]];
+    if (photoArray_.count > 3) {
+        [self.collageView1 loadImageWithPhoto:photoArray_[0]];
+        [self.collageView2 loadImageWithPhoto:photoArray_[1]];
+        [self.collageView3 loadImageWithPhoto:photoArray_[2]];
+        [self.collageView4 loadImageWithPhoto:photoArray_[3]];
     }
 }
 
 - (void)onPhotoSelected:(RMRPhoto *)photo
 {
     [self.currentCollageView loadImageWithPhoto:photo];
+}
+
+- (void)sendCollage:(id)sender {
+    if ([MFMailComposeViewController canSendMail]) {
+        MFMailComposeViewController* mailVC = [[MFMailComposeViewController alloc] init];
+        mailVC.mailComposeDelegate = self;
+        [mailVC setSubject:@"Instagram collage"];
+        UIImage * photoCollageImage = [self.mainCollageView getCollageImage];
+        NSData *imageData = UIImagePNGRepresentation(photoCollageImage);
+        [mailVC addAttachmentData:imageData mimeType:@"image/png" fileName:@"photoCollage"];
+        [self presentViewController:mailVC animated:YES completion:nil];
+    } else {
+        NSLog(@"В данный момент отправка невозможна, пожалуйста, проверьте настройки email");
+    }
+}
+
+#pragma mark - MFMailComposeViewControllerDelegate
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
+    if (result == MFMailComposeResultFailed) {
+        NSLog(@"Не удалось отправить email");
+    }
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - UIAlertView Delegate
@@ -131,7 +166,6 @@
 - (void)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index selectedChanged:(BOOL)selected
 {
     [self.navigationController popViewControllerAnimated:YES];
-
     [self onPhotoSelected:photoArray_[index]];
 }
 
