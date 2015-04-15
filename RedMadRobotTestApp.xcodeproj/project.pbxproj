@@ -12,9 +12,12 @@
 		C00D4D911ADC517C00A1F8F3 /* RMRPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = C00D4D901ADC517C00A1F8F3 /* RMRPhoto.m */; };
 		C025DD351ADD145000BE9514 /* NetworkUtilites.m in Sources */ = {isa = PBXBuildFile; fileRef = C025DD341ADD145000BE9514 /* NetworkUtilites.m */; };
 		C025DD381ADD14B000BE9514 /* RMRUser.m in Sources */ = {isa = PBXBuildFile; fileRef = C025DD371ADD14B000BE9514 /* RMRUser.m */; };
+		C025DD3C1ADD8A3D00BE9514 /* CollagePhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = C025DD3B1ADD8A3D00BE9514 /* CollagePhotoView.m */; };
+		C025DD3E1ADD8A5100BE9514 /* CollagePhotoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C025DD3D1ADD8A5100BE9514 /* CollagePhotoView.xib */; };
 		C068DDCA1ADC3A4100E9E43B /* JSONParser.m in Sources */ = {isa = PBXBuildFile; fileRef = C068DDC91ADC3A4100E9E43B /* JSONParser.m */; };
 		C068DDCC1ADC3D1200E9E43B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C068DDCB1ADC3D1200E9E43B /* Localizable.strings */; };
-		C068DDCF1ADC3E5E00E9E43B /* UIAlertView+RMRTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C068DDCE1ADC3E5E00E9E43B /* UIAlertView+RMRTest.m */; };
+		C0AD10E71ADE92E4004C8CD4 /* UIColor+RMRTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C0AD10E61ADE92E4004C8CD4 /* UIColor+RMRTest.m */; };
+		C0C479D61ADE5DDB00AB9EC2 /* UIView+RMRTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C0C479D51ADE5DDB00AB9EC2 /* UIView+RMRTest.m */; };
 		C0E2044F1ADBF74E006E201A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C0E2044E1ADBF74E006E201A /* main.m */; };
 		C0E204521ADBF74E006E201A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C0E204511ADBF74E006E201A /* AppDelegate.m */; };
 		C0E204551ADBF74E006E201A /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0E204541ADBF74E006E201A /* MainViewController.m */; };
@@ -46,11 +49,16 @@
 		C025DD341ADD145000BE9514 /* NetworkUtilites.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NetworkUtilites.m; path = Services/NetworkUtilites.m; sourceTree = "<group>"; };
 		C025DD361ADD14B000BE9514 /* RMRUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMRUser.h; sourceTree = "<group>"; };
 		C025DD371ADD14B000BE9514 /* RMRUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMRUser.m; sourceTree = "<group>"; };
+		C025DD3A1ADD8A3D00BE9514 /* CollagePhotoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollagePhotoView.h; sourceTree = "<group>"; };
+		C025DD3B1ADD8A3D00BE9514 /* CollagePhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollagePhotoView.m; sourceTree = "<group>"; };
+		C025DD3D1ADD8A5100BE9514 /* CollagePhotoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CollagePhotoView.xib; sourceTree = "<group>"; };
 		C068DDC81ADC3A4100E9E43B /* JSONParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSONParser.h; path = Services/JSONParser.h; sourceTree = "<group>"; };
 		C068DDC91ADC3A4100E9E43B /* JSONParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSONParser.m; path = Services/JSONParser.m; sourceTree = "<group>"; };
 		C068DDCB1ADC3D1200E9E43B /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
-		C068DDCD1ADC3E5E00E9E43B /* UIAlertView+RMRTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIAlertView+RMRTest.h"; path = "Categories/UIAlertView+RMRTest.h"; sourceTree = "<group>"; };
-		C068DDCE1ADC3E5E00E9E43B /* UIAlertView+RMRTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIAlertView+RMRTest.m"; path = "Categories/UIAlertView+RMRTest.m"; sourceTree = "<group>"; };
+		C0AD10E51ADE92E4004C8CD4 /* UIColor+RMRTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+RMRTest.h"; path = "Categories/UIColor+RMRTest.h"; sourceTree = "<group>"; };
+		C0AD10E61ADE92E4004C8CD4 /* UIColor+RMRTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+RMRTest.m"; path = "Categories/UIColor+RMRTest.m"; sourceTree = "<group>"; };
+		C0C479D41ADE5DDB00AB9EC2 /* UIView+RMRTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+RMRTest.h"; path = "Categories/UIView+RMRTest.h"; sourceTree = "<group>"; };
+		C0C479D51ADE5DDB00AB9EC2 /* UIView+RMRTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+RMRTest.m"; path = "Categories/UIView+RMRTest.m"; sourceTree = "<group>"; };
 		C0E204491ADBF74D006E201A /* RedMadRobotTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RedMadRobotTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0E2044D1ADBF74E006E201A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0E2044E1ADBF74E006E201A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -102,6 +110,16 @@
 				C00D4D8D1ADC4C8E00A1F8F3 /* CollageViewController.m */,
 			);
 			name = CollageVC;
+			sourceTree = "<group>";
+		};
+		C025DD391ADD8A1800BE9514 /* CollagePhotoView */ = {
+			isa = PBXGroup;
+			children = (
+				C025DD3A1ADD8A3D00BE9514 /* CollagePhotoView.h */,
+				C025DD3B1ADD8A3D00BE9514 /* CollagePhotoView.m */,
+				C025DD3D1ADD8A5100BE9514 /* CollagePhotoView.xib */,
+			);
+			name = CollagePhotoView;
 			sourceTree = "<group>";
 		};
 		C068DDBE1ADC0CA800E9E43B /* Services */ = {
@@ -197,8 +215,10 @@
 		C0E204731ADC033A006E201A /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				C068DDCD1ADC3E5E00E9E43B /* UIAlertView+RMRTest.h */,
-				C068DDCE1ADC3E5E00E9E43B /* UIAlertView+RMRTest.m */,
+				C0C479D41ADE5DDB00AB9EC2 /* UIView+RMRTest.h */,
+				C0C479D51ADE5DDB00AB9EC2 /* UIView+RMRTest.m */,
+				C0AD10E51ADE92E4004C8CD4 /* UIColor+RMRTest.h */,
+				C0AD10E61ADE92E4004C8CD4 /* UIColor+RMRTest.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -227,6 +247,7 @@
 		C0E204761ADC0360006E201A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C025DD391ADD8A1800BE9514 /* CollagePhotoView */,
 				C0E2045B1ADBF74E006E201A /* LaunchScreen.xib */,
 			);
 			name = Views;
@@ -340,6 +361,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C025DD3E1ADD8A5100BE9514 /* CollagePhotoView.xib in Resources */,
 				C0E204581ADBF74E006E201A /* Main.storyboard in Resources */,
 				C068DDCC1ADC3D1200E9E43B /* Localizable.strings in Resources */,
 				C0E2045D1ADBF74E006E201A /* LaunchScreen.xib in Resources */,
@@ -396,11 +418,13 @@
 			files = (
 				C00D4D911ADC517C00A1F8F3 /* RMRPhoto.m in Sources */,
 				C025DD351ADD145000BE9514 /* NetworkUtilites.m in Sources */,
+				C0C479D61ADE5DDB00AB9EC2 /* UIView+RMRTest.m in Sources */,
+				C0AD10E71ADE92E4004C8CD4 /* UIColor+RMRTest.m in Sources */,
 				C00D4D8E1ADC4C8E00A1F8F3 /* CollageViewController.m in Sources */,
 				C068DDCA1ADC3A4100E9E43B /* JSONParser.m in Sources */,
 				C0E204551ADBF74E006E201A /* MainViewController.m in Sources */,
 				C0E204521ADBF74E006E201A /* AppDelegate.m in Sources */,
-				C068DDCF1ADC3E5E00E9E43B /* UIAlertView+RMRTest.m in Sources */,
+				C025DD3C1ADD8A3D00BE9514 /* CollagePhotoView.m in Sources */,
 				C0E2044F1ADBF74E006E201A /* main.m in Sources */,
 				C025DD381ADD14B000BE9514 /* RMRUser.m in Sources */,
 			);

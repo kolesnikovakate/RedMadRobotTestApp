@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CollagePhotoView.h"
+#import <MWPhotoBrowser/MWPhotoBrowser.h>
+#import <MessageUI/MFMailComposeViewController.h>
 
-@interface CollageViewController : UIViewController
+@interface CollageViewController : UIViewController < CollagePhotoViewDelegate, MWPhotoBrowserDelegate,
+                                                        MFMailComposeViewControllerDelegate >
 
 @end
