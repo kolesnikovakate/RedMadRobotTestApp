@@ -77,8 +77,16 @@
     NSDictionary *info = [notification userInfo];
 
     CGSize keyboardSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    float keyboardHeight = keyboardSize.height;
+    UIInterfaceOrientation interfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+    if (SYSTEM_VERSION_LESS_THAN(@"8.0")) {
+        if (UIInterfaceOrientationIsLandscape(interfaceOrientation)) {
+            keyboardHeight = keyboardSize.width;
+        }
+    }
+
     CGRect visibleRect = self.view.frame;
-    visibleRect.size.height -= keyboardSize.height;
+    visibleRect.size.height -= keyboardHeight;
 
     float elementsHeight = CGRectGetMaxY(self.getCollageButton.frame) - CGRectGetMinY(self.usernameTextField.frame);
     float scrollPointY = CGRectGetMinY(self.usernameTextField.frame) - ((visibleRect.size.height - elementsHeight) / 2);

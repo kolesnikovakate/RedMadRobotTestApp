@@ -68,6 +68,7 @@
 - (void)viewDidLayoutSubviews
 {
     self.collageViewWidthConstraint.constant = MIN(self.view.bounds.size.height, self.view.bounds.size.width) - 20.f;
+    [self.view layoutIfNeeded];
 }
 
 - (void)loadStartPhotos
@@ -94,7 +95,10 @@
         UIImage * photoCollageImage = [self.mainCollageView getCollageImage];
         NSData *imageData = UIImagePNGRepresentation(photoCollageImage);
         [mailVC addAttachmentData:imageData mimeType:@"image/png" fileName:NSLocalizedString(@"FILE_NAME", @"")];
-        [self presentViewController:mailVC animated:YES completion:nil];
+        [mailVC.navigationBar setTintColor:[UIColor whiteColor]];
+        [self presentViewController:mailVC animated:YES completion:^{
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+        }];
     } else {
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"CAN_NOT_SEND_EMAIL", @"")];
     }
