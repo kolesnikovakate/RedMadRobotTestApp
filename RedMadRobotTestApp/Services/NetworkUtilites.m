@@ -16,8 +16,7 @@
 + (void)getUserWithUserName:(NSString *)username completion:(RMRRequrestUserCompletionBlock)completion
 {
     NSString *completeRequestUrl = @"https://api.instagram.com/v1/users/search/";
-    NSDictionary *parameters = @{@"q": username,
-                                 @"client_id": kRMRClientId};
+    NSDictionary *parameters = [NSDictionary requestParamsDictionaryWithDictionary:@{@"q": username}];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:completeRequestUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (completion) {
@@ -44,7 +43,6 @@
     NSNumber *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kRMRCurrentUserIdKey];
     NSString *completeRequestUrl = [NSString stringWithFormat:@"https://api.instagram.com/v1/users/%@/", userId];;
     NSDictionary *parameters = [NSDictionary requestParamsDictionaryWithDictionary:nil];
-  //@{@"client_id": kRMRClientId};
 
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:completeRequestUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -68,12 +66,6 @@
                         maxMediaCount:(NSInteger)maxMediaCount
                            completion:(RMRRequrestUserPhotosCompletionBlock)completion {
     NSDictionary *parameters = [NSDictionary requestParamsDictionaryWithDictionary:(maxID ? @{@"max_id" : maxID} : nil )];
-//    if (maxID) {
-//        params = @{@"max_id" : maxID,
-//                   @"client_id": kRMRClientId};
-//    } else {
-//        params = @{@"client_id": kRMRClientId};
-//    }
 
     NSNumber *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kRMRCurrentUserIdKey];
     NSString *completeRequestUrl = [NSString stringWithFormat:@"https://api.instagram.com/v1/users/%@/media/recent/", userId];
